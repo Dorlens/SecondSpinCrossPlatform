@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,66 +7,58 @@ import {
   ImageBackground,
   StyleSheet,
   StatusBar,
-  Dimensions,
   Animated,
-  Easing,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSpinAnimation } from '../../hooks/useSpinAnimation';
+import { COLORS, SPACING, FONT_SIZES, BORDER_RADIUS } from '../../constants/theme';
+import { RootStackParamList } from '../../types';
 
-const { width } = Dimensions.get('window');
+type Props = NativeStackScreenProps<RootStackParamList, 'AboutUs'>;
 
-function About() {
-    const spinLogo = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-      Animated.loop(
-        Animated.timing(spinLogo, {
-          toValue: 1,
-          duration: 2000,
-          easing: Easing.linear,
-          useNativeDriver: true,
-        })
-      ).start();
-    }, [spinLogo]);
-    
-    const spin = spinLogo.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
-    });
+export function AboutScreen({ navigation }: Props) {
+  const { spin } = useSpinAnimation();
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <StatusBar barStyle="dark-content" />
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+      >
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerContent}>
             {/* Logo */}
             <View style={styles.logoContainer}>
-            <Animated.View style={{transform: [{rotate: spin}]}}>
-            <MaterialIcons name="cached" size={24} color="#000000ff" />
-            </Animated.View>
+              <Animated.View style={{ transform: [{ rotate: spin }] }}>
+                <MaterialIcons name="cached" size={24} color={COLORS.text.primary} />
+              </Animated.View>
               <Text style={styles.logoText}>SECONDSPIN</Text>
             </View>
 
             {/* Header Icons */}
             <View style={styles.headerIcons}>
               <TouchableOpacity style={styles.iconButton}>
-                <Ionicons name="search-outline" size={22} color="#111318" />
+                <Ionicons name="search-outline" size={22} color={COLORS.text.primary} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.iconButton}>
-                <Ionicons name="cart-outline" size={22} color="#111318" />
+                <Ionicons name="cart-outline" size={22} color={COLORS.text.primary} />
               </TouchableOpacity>
             </View>
           </View>
 
           {/* Navigation */}
           <View style={styles.navigation}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Text style={styles.navLink}>Home</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Shop')}>
               <Text style={styles.navLink}>Shop</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Sell')}>
               <Text style={styles.navLink}>Sell</Text>
             </TouchableOpacity>
             <TouchableOpacity>
@@ -86,7 +78,8 @@ function About() {
           <View style={styles.heroOverlay}>
             <Text style={styles.heroTitle}>Rethink Fashion. Rewear Style.</Text>
             <Text style={styles.heroSubtitle}>
-              Join the movement towards a more sustainable and stylish future. Buy and sell pre-loved fashion with confidence.
+              Join the movement towards a more sustainable and stylish future. Buy and
+              sell pre-loved fashion with confidence.
             </Text>
           </View>
         </ImageBackground>
@@ -95,7 +88,10 @@ function About() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Our Mission</Text>
           <Text style={styles.missionText}>
-            Our mission is to make sustainable fashion accessible to everyone. We believe in the power of circularity to reduce waste and inspire a new generation of conscious consumers. SecondSpin is more than a marketplace; it's a community dedicated to extending the life of great style.
+            Our mission is to make sustainable fashion accessible to everyone. We
+            believe in the power of circularity to reduce waste and inspire a new
+            generation of conscious consumers. SecondSpin is more than a marketplace;
+            it's a community dedicated to extending the life of great style.
           </Text>
         </View>
 
@@ -103,36 +99,40 @@ function About() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Our Values</Text>
           <View style={styles.valuesContainer}>
-            {/* Value Card 1 */}
             <View style={styles.valueCard}>
               <View style={styles.valueIconContainer}>
-                <Ionicons name="leaf-outline" size={32} color="#3B82F6" />
+                <Ionicons name="leaf-outline" size={32} color={COLORS.accent.blue} />
               </View>
               <Text style={styles.valueTitle}>Sustainability First</Text>
               <Text style={styles.valueDescription}>
-                We champion a circular economy to reduce fashion waste and promote conscious consumption.
+                We champion a circular economy to reduce fashion waste and promote
+                conscious consumption.
               </Text>
             </View>
 
-            {/* Value Card 2 */}
             <View style={styles.valueCard}>
               <View style={styles.valueIconContainer}>
-                <Ionicons name="people-outline" size={32} color="#3B82F6" />
+                <Ionicons name="people-outline" size={32} color={COLORS.accent.blue} />
               </View>
               <Text style={styles.valueTitle}>Community-Driven</Text>
               <Text style={styles.valueDescription}>
-                We build a trusted space where style enthusiasts can connect, share, and inspire each other.
+                We build a trusted space where style enthusiasts can connect, share, and
+                inspire each other.
               </Text>
             </View>
 
-            {/* Value Card 3 */}
             <View style={styles.valueCard}>
               <View style={styles.valueIconContainer}>
-                <Ionicons name="checkmark-circle-outline" size={32} color="#3B82F6" />
+                <Ionicons
+                  name="checkmark-circle-outline"
+                  size={32}
+                  color={COLORS.accent.blue}
+                />
               </View>
               <Text style={styles.valueTitle}>Style Authenticity</Text>
               <Text style={styles.valueDescription}>
-                Show off your personal style and discover authentic, high-quality pieces from sellers you can trust.
+                Show off your personal style and discover authentic, high-quality pieces
+                from sellers you can trust.
               </Text>
             </View>
           </View>
@@ -142,7 +142,6 @@ function About() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>How It Works</Text>
           <View style={styles.stepsContainer}>
-            {/* Step 1 */}
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>1</Text>
@@ -153,25 +152,25 @@ function About() {
               </Text>
             </View>
 
-            {/* Step 2 */}
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>2</Text>
               </View>
               <Text style={styles.stepTitle}>Ship to Buyer</Text>
               <Text style={styles.stepDescription}>
-                Once your item sells, use our prepaid label to ship it out to its new home.
+                Once your item sells, use our prepaid label to ship it out to its new
+                home.
               </Text>
             </View>
 
-            {/* Step 3 */}
             <View style={styles.stepItem}>
               <View style={styles.stepNumber}>
                 <Text style={styles.stepNumberText}>3</Text>
               </View>
               <Text style={styles.stepTitle}>Get Paid</Text>
               <Text style={styles.stepDescription}>
-                After the buyer confirms receipt, your earnings are securely transferred to you.
+                After the buyer confirms receipt, your earnings are securely transferred
+                to you.
               </Text>
             </View>
           </View>
@@ -181,30 +180,36 @@ function About() {
         <View style={[styles.section, styles.trustSection]}>
           <Text style={styles.sectionTitle}>Trust & Safety</Text>
           <View style={styles.trustContainer}>
-            {/* Buyer Protection */}
             <View style={styles.trustItem}>
-              <Ionicons name="shield-checkmark-outline" size={36} color="#3B82F6" />
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={36}
+                color={COLORS.accent.blue}
+              />
               <Text style={styles.trustTitle}>Buyer Protection</Text>
               <Text style={styles.trustDescription}>
                 Shop with peace of mind. We protect your purchase every step of the way.
               </Text>
             </View>
 
-            {/* Seller Security */}
             <View style={styles.trustItem}>
-              <Ionicons name="car-outline" size={36} color="#3B82F6" />
+              <Ionicons name="car-outline" size={36} color={COLORS.accent.blue} />
               <Text style={styles.trustTitle}>Seller Security</Text>
               <Text style={styles.trustDescription}>
                 We verify transactions and ensure you get paid for every sale you make.
               </Text>
             </View>
 
-            {/* Authenticity Guarantee */}
             <View style={styles.trustItem}>
-              <Ionicons name="checkmark-done-circle-outline" size={36} color="#3B82F6" />
+              <Ionicons
+                name="checkmark-done-circle-outline"
+                size={36}
+                color={COLORS.accent.blue}
+              />
               <Text style={styles.trustTitle}>Authenticity Guarantee</Text>
               <Text style={styles.trustDescription}>
-                Our experts review items to ensure you receive genuine, high-quality pieces.
+                Our experts review items to ensure you receive genuine, high-quality
+                pieces.
               </Text>
             </View>
           </View>
@@ -217,10 +222,16 @@ function About() {
             Ready to give your wardrobe a second life? Start buying or selling today.
           </Text>
           <View style={styles.ctaButtons}>
-            <TouchableOpacity style={styles.primaryButton}>
+            <TouchableOpacity
+              style={styles.primaryButton}
+              onPress={() => navigation.navigate('Shop')}
+            >
               <Text style={styles.primaryButtonText}>Start Shopping</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.secondaryButton}>
+            <TouchableOpacity
+              style={styles.secondaryButton}
+              onPress={() => navigation.navigate('Sell')}
+            >
               <Text style={styles.secondaryButtonText}>Become a Seller</Text>
             </TouchableOpacity>
           </View>
@@ -231,12 +242,14 @@ function About() {
           <View style={styles.footerContent}>
             <View style={styles.footerBrand}>
               <View style={styles.footerLogoContainer}>
-               <Animated.View style={{transform: [{rotate: spin}]}}>
-                    <MaterialIcons name="cached" size={24} color="#000000ff" />
+                <Animated.View style={{ transform: [{ rotate: spin }] }}>
+                  <MaterialIcons name="cached" size={24} color={COLORS.text.primary} />
                 </Animated.View>
                 <Text style={styles.footerLogoText}>SECONDSPIN</Text>
               </View>
-              <Text style={styles.footerTagline}>The future of fashion is circular.</Text>
+              <Text style={styles.footerTagline}>
+                The future of fashion is circular.
+              </Text>
             </View>
 
             <View style={styles.footerLinks}>
@@ -262,75 +275,78 @@ function About() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.background.primary,
   },
   scrollView: {
     flex: 1,
   },
-  // Header Styles
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 80,
+  },
   header: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.background.primary,
     borderBottomWidth: 1,
-    borderBottomColor: '#E2E8F0',
-    paddingTop: 12,
-    paddingBottom: 8,
+    borderBottomColor: COLORS.border.medium,
+    paddingTop: SPACING.md,
+    paddingBottom: SPACING.sm,
   },
   headerContent: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 12,
+    paddingHorizontal: SPACING.lg,
+    paddingBottom: SPACING.md,
   },
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: SPACING.sm,
   },
   logoText: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
-    color: '#111318',
+    color: COLORS.text.primary,
   },
   headerIcons: {
     flexDirection: 'row',
-    gap: 8,
+    gap: SPACING.sm,
   },
   iconButton: {
     width: 40,
     height: 40,
-    borderRadius: 8,
-    backgroundColor: '#F1F5F9',
+    borderRadius: BORDER_RADIUS.sm,
+    backgroundColor: COLORS.background.card,
     justifyContent: 'center',
     alignItems: 'center',
   },
   navigation: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.sm,
+    gap: SPACING.lg,
   },
   navLink: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     fontWeight: '500',
-    color: '#999',
+    color: COLORS.text.muted,
   },
   navLinkActive: {
-    color: '#111318',
+    color: COLORS.text.primary,
   },
-  // Hero Section
   heroSection: {
     height: 400,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 0,
   },
   heroImage: {
     borderRadius: 0,
@@ -341,77 +357,73 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: SPACING.xl,
   },
   heroTitle: {
-    fontSize: 32,
+    fontSize: FONT_SIZES.display,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: COLORS.text.inverse,
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: SPACING.md,
   },
   heroSubtitle: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     lineHeight: 24,
   },
-  // Section Styles
   section: {
-    paddingHorizontal: 16,
-    paddingVertical: 40,
+    paddingHorizontal: SPACING.lg,
+    paddingVertical: SPACING.xxxl,
   },
   sectionTitle: {
-    fontSize: 28,
+    fontSize: FONT_SIZES.hero,
     fontWeight: 'bold',
-    color: '#111318',
+    color: COLORS.text.primary,
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: SPACING.xl,
   },
-  // Mission Section
   missionText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     lineHeight: 26,
     color: 'rgba(17, 19, 24, 0.8)',
     textAlign: 'center',
   },
-  // Values Section
   valuesContainer: {
-    gap: 16,
+    gap: SPACING.lg,
   },
   valueCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: COLORS.background.primary,
+    borderRadius: BORDER_RADIUS.md,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    padding: 20,
+    borderColor: COLORS.border.medium,
+    padding: SPACING.xxl - SPACING.md,
     alignItems: 'center',
   },
   valueIconContainer: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    backgroundColor: COLORS.primaryLight,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.lg,
   },
   valueTitle: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
-    color: '#111318',
-    marginBottom: 8,
+    color: COLORS.text.primary,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
   },
   valueDescription: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     lineHeight: 22,
     color: 'rgba(17, 19, 24, 0.7)',
     textAlign: 'center',
   },
-  // Steps Section
   stepsContainer: {
-    gap: 32,
+    gap: SPACING.xxl,
   },
   stepItem: {
     alignItems: 'center',
@@ -420,137 +432,134 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: '#3B82F6',
+    backgroundColor: COLORS.accent.blue,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: SPACING.lg,
   },
   stepNumberText: {
-    fontSize: 24,
+    fontSize: FONT_SIZES.xxxl,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: COLORS.text.inverse,
   },
   stepTitle: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
-    color: '#111318',
-    marginBottom: 8,
+    color: COLORS.text.primary,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
   },
   stepDescription: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     lineHeight: 22,
     color: 'rgba(17, 19, 24, 0.7)',
     textAlign: 'center',
   },
-  // Trust Section
   trustSection: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    backgroundColor: COLORS.background.primary,
+    borderRadius: BORDER_RADIUS.md,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    marginHorizontal: 16,
+    borderColor: COLORS.border.medium,
+    marginHorizontal: SPACING.lg,
   },
   trustContainer: {
-    gap: 24,
+    gap: SPACING.xl,
   },
   trustItem: {
     alignItems: 'center',
   },
   trustTitle: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     fontWeight: '600',
-    color: '#111318',
-    marginTop: 12,
-    marginBottom: 8,
+    color: COLORS.text.primary,
+    marginTop: SPACING.md,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
   },
   trustDescription: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     lineHeight: 22,
     color: 'rgba(17, 19, 24, 0.7)',
     textAlign: 'center',
   },
-  // CTA Section
   ctaText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     lineHeight: 24,
     color: 'rgba(17, 19, 24, 0.8)',
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: SPACING.xl,
   },
   ctaButtons: {
-    gap: 12,
+    gap: SPACING.md,
   },
   primaryButton: {
-    backgroundColor: '#3B82F6',
-    borderRadius: 8,
-    paddingVertical: 14,
-    paddingHorizontal: 24,
+    backgroundColor: COLORS.accent.blue,
+    borderRadius: BORDER_RADIUS.sm,
+    paddingVertical: SPACING.md + 2,
+    paddingHorizontal: SPACING.xl,
     alignItems: 'center',
   },
   primaryButtonText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: COLORS.text.inverse,
   },
   secondaryButton: {
-    backgroundColor: '#F1F5F9',
-    borderRadius: 8,
-    paddingVertical: 14,
-    paddingHorizontal: 24,
+    backgroundColor: COLORS.background.card,
+    borderRadius: BORDER_RADIUS.sm,
+    paddingVertical: SPACING.md + 2,
+    paddingHorizontal: SPACING.xl,
     alignItems: 'center',
   },
   secondaryButtonText: {
-    fontSize: 16,
+    fontSize: FONT_SIZES.lg,
     fontWeight: 'bold',
-    color: '#111318',
+    color: COLORS.text.primary,
   },
-  // Footer
   footer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: COLORS.background.primary,
     borderTopWidth: 1,
-    borderTopColor: '#E2E8F0',
-    paddingVertical: 40,
-    paddingHorizontal: 16,
+    borderTopColor: COLORS.border.medium,
+    paddingVertical: SPACING.xxxl,
+    paddingHorizontal: SPACING.lg,
   },
   footerContent: {
-    gap: 32,
+    gap: SPACING.xxl,
   },
   footerBrand: {
-    gap: 12,
+    gap: SPACING.md,
   },
   footerLogoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: SPACING.sm,
   },
   footerLogoText: {
-    fontSize: 18,
+    fontSize: FONT_SIZES.xl,
     fontWeight: 'bold',
-    color: '#111318',
+    color: COLORS.text.primary,
   },
   footerTagline: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     color: 'rgba(17, 19, 24, 0.7)',
   },
   footerLinks: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
+    rowGap: SPACING.lg,
   },
   footerColumn: {
-    gap: 8,
+    gap: SPACING.sm,
   },
   footerColumnTitle: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     fontWeight: '600',
-    color: '#111318',
-    marginBottom: 8,
+    color: COLORS.text.primary,
+    marginBottom: SPACING.sm,
   },
   footerLink: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.md,
     color: 'rgba(17, 19, 24, 0.7)',
   },
 });
-
-export default About;
