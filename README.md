@@ -139,10 +139,10 @@ cd secondspin
 source bin/activate
 
 # Create superuser for admin panel
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 
 # Run migrations
-python manage.py migrate
+python3 manage.py migrate
 
 
 ## Database
@@ -154,8 +154,8 @@ The project uses Django's ORM with support for multiple databases:
 ### Running Migrations
 
 ```bash
-python manage.py makemigrations
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 ```
 
 ### Creating a Superuser
@@ -189,19 +189,19 @@ npm test
 cd secondspin
 
 # Run development server
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver
 
 # Create migrations for model changes
-python manage.py makemigrations
+pytho3 manage.py makemigrations
 
 # Apply migrations
-python manage.py migrate
+python3 manage.py migrate
 
 # Create a superuser for admin access
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 
 # Access Django shell
-python manage.py shell
+python3 manage.py shell
 ```
 
 **SecondSpin** - Giving second-hand items a second spin! 
