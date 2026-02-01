@@ -61,7 +61,6 @@ export function LoginScreen({ navigation }: Props) {
         setLoading(false);
       }
     }
-    setErrors('');
     const styles = getStyles(isDark);
   
   return (
@@ -338,7 +337,7 @@ const getStyles = (isDark : boolean) =>
       width: "100%",
       height: 56,
       color: "#000",
-      backgroundColor: "#3c6ad6",
+      backgroundColor: '#3b82f6',
       borderRadius: 8,
       justifyContent: "center",
       alignItems: "center",
