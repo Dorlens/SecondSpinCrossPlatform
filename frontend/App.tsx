@@ -7,6 +7,8 @@ import {
   ShopScreen,
   SellScreen,
   AboutScreen,
+  SignupScreen,
+  LoginScreen,
 } from './components/screens';
 import { RootStackParamList } from './types';
 
@@ -25,6 +27,8 @@ const App: React.FC = () => {
           <Stack.Screen name="Shop" component={ShopScreen} />
           <Stack.Screen name="Sell" component={SellScreen} />
           <Stack.Screen name="AboutUs" component={AboutScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
