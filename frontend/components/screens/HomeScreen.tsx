@@ -32,10 +32,10 @@ export function HomeScreen({ navigation }: Props) {
 
         {/* Auth Buttons */}
         <View style={styles.authContainer}>
-          <TouchableOpacity style={styles.signUpButton}>
+          <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
             <Text style={styles.loginText}>Log In</Text>
           </TouchableOpacity>
         </View>
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     gap: SPACING.md,
     paddingHorizontal: SPACING.lg,
     marginBottom: SPACING.xl,
+    marginTop: SPACING.xl,
   },
   signUpButton: {
     backgroundColor: COLORS.background.tertiary,

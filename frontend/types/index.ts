@@ -7,6 +7,8 @@ export type RootStackParamList = {
   Shop: undefined;
   Sell: undefined;
   AboutUs: undefined;
+  Signup: undefined;
+  Login: undefined;
 };
 
 export type ScreenName = keyof RootStackParamList;
