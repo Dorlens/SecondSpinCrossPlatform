@@ -43,7 +43,7 @@ A modern, full-stack cross-platform marketplace for buying and selling vintage a
 ## 📂 Project Structure
 
 ```
-SecondSpinCrossPlatfrom/
+SecondSpinCrossPlatform/
 ├── frontend/                        # React TypeScript Application
 │   ├── components/                  # Reusable UI Components
 │   │   ├── Home.tsx                # Landing page
@@ -192,7 +192,7 @@ cd secondspin
 python3 manage.py runserver
 
 # Create migrations for model changes
-pytho3 manage.py makemigrations
+python3 manage.py makemigrations
 
 # Apply migrations
 python3 manage.py migrate
