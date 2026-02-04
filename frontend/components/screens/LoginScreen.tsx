@@ -89,7 +89,7 @@ export function LoginScreen({ navigation }: Props) {
           {/* Logo and Brand */}
           <View style={styles.logoContainer}>
             <View style={styles.logoWrapper}>
-              <Animated.View style={{ transform: [{ rotate: spin }] }}>
+              <Animated.View style={{ transform: [{ rotate: spin }] }} testID="logoIcon">
                 <MaterialIcons name="cached" size={24} color={COLORS.text.primary} />
               </Animated.View>
               <Text style={styles.brandText}>SECONDSPIN</Text>
@@ -148,6 +148,7 @@ export function LoginScreen({ navigation }: Props) {
                   style={styles.eyeButton}
                   onPress={() => setShowPassword(!showPassword)}
                   accessibilityLabel="Toggle password visibility"
+                  testID="togglePasswordVisibility"
                 >
                   <Ionicons
                     name={showPassword ? "eye-off-outline" : "eye-outline"}
@@ -171,6 +172,7 @@ export function LoginScreen({ navigation }: Props) {
               style={[styles.loginButton, loading && styles.loginButtonDisabled]}
               onPress={handleSubmit}
               disabled={loading}
+              testID="loginButton"
             >
                {loading ? ( 
                  <View style={styles.loadingContainer}>
