@@ -11,10 +11,33 @@ import {
   LoginScreen,
 } from './components/screens';
 import { RootStackParamList } from './types';
+import SplashScreen from './components/screens/SplashScreen';
+import * as ExpoSplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: React.FC = () => {
+  const [appIsReady, setAppIsReady] = React.useState(false);
+
+    // Artificially delay for 1 second to simulate a slow loading
+    useEffect(() => {
+      const prepare = async () => {
+       const timer =  setTimeout(() => onSplashFinish(), 1000);
+        return () => clearTimeout(timer);
+      };
+      prepare();
+      
+    }, []);
+  
+    const onSplashFinish = async () => {
+      setAppIsReady(true);
+      await ExpoSplashScreen.hideAsync();
+    };
+  
+    if (!appIsReady) {
+      return <SplashScreen onFinish={onSplashFinish} />;
+    }
   return (
     <SafeAreaProvider>
       <NavigationContainer>
